@@ -25,7 +25,7 @@ const handleCategory = async () => {
 
 
 const handleLoadNews =async (categoryId) => {
-    //console.log(categoryId);
+    console.log(categoryId);
     const response = await fetch(
         ` https://openapi.programming-hero.com/api/videos/category/${categoryId} `
      );
@@ -33,6 +33,8 @@ const handleLoadNews =async (categoryId) => {
     const data = await response.json();
 
     const cardContainer = document.getElementById("card-container");
+
+    cardContainer.innerHTML= "";
 
 
     data.data?.forEach((news) => {
@@ -61,7 +63,7 @@ const handleLoadNews =async (categoryId) => {
                         <p>${news?.authors[0].profile_name}</p>
                     </div>
 
-                    <p>91k views</p>
+                    <h3> ${news.others.views ? news.others.views : "no views"}</h3>
                     
                 </div>
             </div>
@@ -78,3 +80,6 @@ const handleLoadNews =async (categoryId) => {
 };
 
 handleCategory();
+handleLoadNews("1001")
+
+
