@@ -20,9 +20,9 @@ const handleCategory = async () => {
         btnContainer.appendChild(div);
     });
 
-    
 
-    
+
+
 
 
 };
@@ -43,6 +43,12 @@ const handleLoadNews = async (categoryId) => {
 
     data.data?.forEach((news) => {
         //console.log(news);
+        // const timeShow = news?.others?.posted_date
+        // const hours = Math.floor(timeShow / 3600);
+        // const remainingSeconds = timeShow % 3600;
+        // const minutes = Math.floor(remainingSeconds / 60);
+        // const time = 
+
         const div = document.createElement('div');
 
         div.innerHTML = `
@@ -51,8 +57,11 @@ const handleLoadNews = async (categoryId) => {
                 <figure>
                 <div>
                 <img class=" w-full lg:h-48" src=${news?.thumbnail} />
+                <div class="card">
+                <p id="time" class="bg-gray-400 w-1/2 text-center">${news?.others?.posted_date? time: "" }</p>
+                </div>
 
-                <p class="bg-gray-400 w-1/2 text-center">${news?.others?.posted_date}</p>
+                
                 </div>
                 
                 </figure>
@@ -70,7 +79,7 @@ const handleLoadNews = async (categoryId) => {
                             ${news.title}
                             </h2>
                             <div class="">
-                                 <p class="flex gap-1">${news?.authors[0].profile_name}<img src="${news?.authors[0].verified ? "images/check.jpg" : " " }" />
+                                 <p class="flex gap-1">${news?.authors[0].profile_name}<img src="${news?.authors[0].verified ? "images/check.jpg" : " "}" />
                                  </p>
      
 
@@ -90,16 +99,28 @@ const handleLoadNews = async (categoryId) => {
         cardContainer.appendChild(div);
     });
 
-
-
-
-
-
 };
 
 handleCategory();
 handleLoadNews("1001")
 
+
+// function secondsToHoursMinutes(seconds) {
+//     const hours = Math.floor(seconds / 3600);
+//     const remainingSeconds = seconds % 3600;
+//     const minutes = Math.floor(remainingSeconds / 60);
+//     return { hours, minutes };
+// }
+
+// const card = document.querySelector('.card');
+// const timeElement = card.querySelector('time');
+
+// const durationInSeconds = 7320; 
+
+// const { hours, minutes } = secondsToHoursMinutes(durationInSeconds);
+
+
+// timeElement.textContent = `${hours} hours and ${minutes} minutes`;
 
 // const sortDate = async () => {
 //     const response = await fetch('https://openapi.programming-hero.com/api/ai/tools')

@@ -43,16 +43,26 @@ const handleLoadNews = async (categoryId) => {
 
     data.data?.forEach((news) => {
         //console.log(news);
+
+        const seconds = news?.others?.posted_date
+        const hour = Math.floor(seconds / 3600);
+        const remainingminutes = seconds % 60;
+        
+
+        //console.log(`${hour} hour ${remainingminutes} minutes`);
+        const time = document.getElementById('seconds');
+
         const div = document.createElement('div');
 
         div.innerHTML = `
 
         <div class="card card-compact bg-base-100 shadow-xl">
                 <figure>
-                <div>
-                <img class=" w-full lg:h-48" src=${news?.thumbnail} />
+                <div class="retalive ">
+                <img class="retalive w-full lg:h-48" src=${news?.thumbnail} />
 
-                <p class="bg-gray-400 w-1/2 text-center">${news?.others?.posted_date}</p>
+                <p id="seconds" class="bg-gray-400 p-1 w-2/5 lg:w-2/4 text-center absolute top-40  md:top-64 lg:top-36 right-3 rounded-lg">
+                ${ hour } hour ${ remainingminutes } min ago </p>
                 </div>
                 
                 </figure>
@@ -99,6 +109,22 @@ const handleLoadNews = async (categoryId) => {
 
 handleCategory();
 handleLoadNews("1001")
+
+// function secondsToHourMinutes(seconds) {
+//     // Calculate the number of Hour
+//     const hour = Math.floor(seconds / 3600);
+
+//     // Calculate the remaining seconds
+//     const remainingminutes = seconds % 3600;
+
+//     // Return the result as a string in the format "X hour Y min"
+//     return `${hour} hour ${remainingminutes} minutes`;
+// }
+
+// const seconds = 2220; 
+// const result = secondsToHourMinutes(seconds);
+// console.log(result); 
+
 
 
 // const sortDate = async () => {
