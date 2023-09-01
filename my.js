@@ -1,4 +1,4 @@
-
+console.log("connected");
 
 const handleCategory = async () => {
     const response = await fetch("https://openapi.programming-hero.com/api/videos/categories ");
@@ -38,7 +38,7 @@ const handleLoadNews = async (categoryId) => {
 
 
     data.data?.forEach((news) => {
-        //console.log(news);
+        console.log(news);
         const div = document.createElement('div');
 
         div.innerHTML = `
@@ -61,22 +61,24 @@ const handleLoadNews = async (categoryId) => {
                             </div>
                         </div>
                     
-                    <div class="pl-5 md:pl-10 lg:pl-0">
-                        <h2 class="card-title md:text-3xl lg:text-xl pb-2 lg:pb-0 ">
-                        ${news.title}
-                        </h2>
-                        <div class="flex justify-center items-center">
-                         <p class="md:text-2xl font-bold lg:text-sm pb-2 lg:pb-0">${news?.authors[0].profile_name}</p>
+                        <div class="pl-5 md:pl-10 lg:pl-0">
+                            <h2 class="card-title md:text-3xl lg:text-xl pb-2 lg:pb-0 ">
+                            ${news.title}
+                            </h2>
+                            <div class="flex justify-center items-center">
+                            <p class="md:text-2xl font-bold lg:text-sm pb-2 lg:pb-0">${news?.authors[0].profile_name}</p>
 
-                         <div id="checkboxContainer">
-                         <input type=${news?.authors[0].verified} checked=${news?.authors[0].verified} class="checkbox checkbox-primary rounded-full" />
-                         
-                         </div>
+                            <div id="checkboxContainer">
+                            <input type=${news?.authors[0].verified} checked=${news?.authors[0].verified} class="checkbox checkbox-primary rounded-full" />
+                            
+                            </div>
+                            
+
+                            </div>
                         
-
+                            <h3 class="md:text-3xl lg:text-sm font-bold mb-5"> ${news?.others?.views}</h3>
                         </div>
-                       
-                         <h3 class="md:text-3xl lg:text-sm font-bold mb-5"> ${news?.others?.views}</h3>
+
                     </div>
                     
 
@@ -90,9 +92,11 @@ const handleLoadNews = async (categoryId) => {
 
 
 
+
+
+
 };
 
-//mandatory part calling
 handleCategory();
 handleLoadNews("1001")
 
@@ -107,6 +111,3 @@ function goHome() {
 
 }
 document.getElementById('gohome-button').addEventListener('click', goHome);
-
-
-
