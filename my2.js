@@ -37,8 +37,10 @@ const handleLoadNews = async (categoryId) => {
     const data = await response.json();
 
     const cardContainer = document.getElementById("card-container");
+    //console.log(cardContainer)
 
-    cardContainer.innerHTML = "";
+    cardContainer.innerHTML = " ";
+    
 
 
     data.data?.forEach((news) => {
@@ -109,22 +111,6 @@ const handleLoadNews = async (categoryId) => {
 
 handleCategory();
 handleLoadNews("1001")
-
-// function secondsToHourMinutes(seconds) {
-//     // Calculate the number of Hour
-//     const hour = Math.floor(seconds / 3600);
-
-//     // Calculate the remaining seconds
-//     const remainingminutes = seconds % 3600;
-
-//     // Return the result as a string in the format "X hour Y min"
-//     return `${hour} hour ${remainingminutes} minutes`;
-// }
-
-// const seconds = 2220; 
-// const result = secondsToHourMinutes(seconds);
-// console.log(result); 
-
 
 
 // const sortDate = async () => {
