@@ -8,51 +8,73 @@ const handleCategory = async () => {
     const btnContainer = document.getElementById("btn-container");
     //console.log(data);
 
-    //forEach start
-
     data.data.slice(0, 4).forEach((catergory) => {
 
         const div = document.createElement("div");
+        
+        
 
         div.innerHTML = `
-            <button onclick="handleLoadNews('${catergory.category_id}')" class="btn btn-secondary text-sm md:text-xl lg:text-xl">${catergory.category}</button>
+            
+            <button onclick="handleLoadNews('${catergory.category_id}') " class="btn btn-secondary text-sm md:text-xl lg:text-xl">${catergory.category}</button>
             `;
         btnContainer.appendChild(div);
     });
 
 
-
-
+    
 
 
 };
 
 
+
 const handleLoadNews = async (categoryId) => {
     //console.log(categoryId);
+    
     const response = await fetch(
         ` https://openapi.programming-hero.com/api/videos/category/${categoryId} `
     );
 
     const data = await response.json();
+    if (data.data.length ===0 ){
+        toggleLoadingSpinner(true);
+
+    }
+    else{
+        toggleLoadingSpinner(false);
+    }
 
     const cardContainer = document.getElementById("card-container");
+    //console.log(cardContainer)
 
-    cardContainer.innerHTML = "";
+    cardContainer.innerHTML = " ";
+    
 
 
     data.data?.forEach((news) => {
         //console.log(news);
+        //${news.total_view ? news.total_view : "no views"
+
+        const seconds = news?.others?.posted_date? news?.others?.posted_date :" ";
+        const hour = Math.floor(seconds / 3600);
+        const remainingminutes = seconds % 60;
+        
+
+        //console.log(`${hour} hour ${remainingminutes} minutes`);
+        const time = document.getElementById('seconds');
+
         const div = document.createElement('div');
 
         div.innerHTML = `
 
         <div class="card card-compact bg-base-100 shadow-xl">
                 <figure>
-                <div>
-                <img class=" w-full lg:h-48" src=${news?.thumbnail} />
+                <div class="retalive ">
+                <img class="retalive w-full lg:h-48" src=${news?.thumbnail} />
 
-                <p class="bg-gray-400 w-1/2 text-center">${news?.others?.posted_date}</p>
+                <p id="seconds" class="bg-gray-400 p-1 w-2/5 lg:w-2/4 text-center absolute top-40  md:top-64 lg:top-36 right-3 rounded-lg">
+                ${ hour } hour ${ remainingminutes } min ago </p>
                 </div>
                 
                 </figure>
@@ -92,10 +114,17 @@ const handleLoadNews = async (categoryId) => {
 
 
 
-
-
-
 };
+
+const toggleLoadingSpinner = (isLoading) => {
+    const loadingSpinner = document.getElementById('drawing');
+    if(isLoading){
+        loadingSpinner.classList.remove('hidden');
+    }
+    else{
+        loadingSpinner.classList.add('hidden');
+    }
+}
 
 handleCategory();
 handleLoadNews("1001")
