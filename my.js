@@ -6,6 +6,7 @@ const handleCategory = async () => {
     const data = await response.json();
 
     const btnContainer = document.getElementById("btn-container");
+    //console.log(data);
 
     //forEach start
 
@@ -19,6 +20,9 @@ const handleCategory = async () => {
         btnContainer.appendChild(div);
     });
 
+    
+
+    
 
 
 };
@@ -38,7 +42,7 @@ const handleLoadNews = async (categoryId) => {
 
 
     data.data?.forEach((news) => {
-        console.log(news);
+        //console.log(news);
         const div = document.createElement('div');
 
         div.innerHTML = `
@@ -65,14 +69,10 @@ const handleLoadNews = async (categoryId) => {
                             <h2 class="card-title md:text-3xl lg:text-xl pb-2 lg:pb-0 ">
                             ${news.title}
                             </h2>
-                            <div class="flex justify-center items-center">
-                            <p class="md:text-2xl font-bold lg:text-sm pb-2 lg:pb-0">${news?.authors[0].profile_name}</p>
-
-                            <div id="checkboxContainer">
-                            <input type=${news?.authors[0].verified} checked=${news?.authors[0].verified} class="checkbox checkbox-primary rounded-full" />
-                            
-                            </div>
-                            
+                            <div class="">
+                                 <p class="flex gap-1">${news?.authors[0].profile_name}<img src="${news?.authors[0].verified ? "images/check.jpg" : " " }" />
+                                 </p>
+     
 
                             </div>
                         
@@ -100,6 +100,38 @@ const handleLoadNews = async (categoryId) => {
 handleCategory();
 handleLoadNews("1001")
 
+
+// const sortDate = async () => {
+//     const response = await fetch('https://openapi.programming-hero.com/api/ai/tools')
+//     const data = await response.json()
+//     const finalData = data.data.tools
+//     const sortThedata = finalData.sort((a, b) => {
+//         return new Date(a.published_in) - new Date(b.published_in)
+//     })
+//     console.log(sortThedata)
+//     viewData(sortThedata, true)
+// }
+
+// const ShowDetails = async (id) => {
+
+//     const response = await fetch(`https://openapi.programming-hero.com/api/ai/tool/${id}`)
+//     const data = await response.json()
+//     console.log(data)
+
+// }
+// const isShowAll = () => {
+//     loaddata(true);
+// }
+
+// const isShowLess = () => {
+//     loaddata(false)
+// }
+
+
+
+
+
+// loaddata()
 
 
 

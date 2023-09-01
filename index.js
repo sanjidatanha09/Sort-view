@@ -109,4 +109,5 @@ function goHome() {
 document.getElementById('gohome-button').addEventListener('click', goHome);
 
 
-
+// {/* <p class="md:text-2xl font-bold lg:text-sm pb-2 lg:pb-0">${news?.authors[0].profile_name}</p>
+//   <img src="${news?.authors[0].verified? "images/check.jpg" : " " }" /> */}
