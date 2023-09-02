@@ -21,15 +21,13 @@ const handleCategory = async () => {
         btnContainer.appendChild(div);
     });
 
-
-    
-
-
 };
 
 
+let all
 
-const handleLoadNews = async (categoryId) => {
+const handleLoadNews = async (categoryId = "1000") => {
+    all = categoryId
     //console.log(categoryId);
     
     const response = await fetch(
@@ -37,11 +35,23 @@ const handleLoadNews = async (categoryId) => {
     );
 
     const data = await response.json();
-    if (data.data.length ===0 ){
+    const mainData = data.data;
+
+    showData(mainData);
+
+
+
+
+
+};
+const showData = (mainData) =>{
+
+
+    if (mainData.length === 0) {
         toggleLoadingSpinner(true);
 
     }
-    else{
+    else {
         toggleLoadingSpinner(false);
     }
 
@@ -49,17 +59,16 @@ const handleLoadNews = async (categoryId) => {
     //console.log(cardContainer)
 
     cardContainer.innerHTML = " ";
-    
 
 
-    data.data?.forEach((news) => {
+
+    mainData?.forEach((news) => {
         //console.log(news);
-        //${news.total_view ? news.total_view : "no views"
 
-        const seconds = news?.others?.posted_date? news?.others?.posted_date :" ";
+        const seconds = news?.others?.posted_date ? news?.others?.posted_date : " ";
         const hour = Math.floor(seconds / 3600);
         const remainingminutes = seconds % 60;
-        
+
 
         //console.log(`${hour} hour ${remainingminutes} minutes`);
         const time = document.getElementById('seconds');
@@ -74,7 +83,7 @@ const handleLoadNews = async (categoryId) => {
                 <img class="retalive w-full lg:h-48" src=${news?.thumbnail} />
 
                 <p id="seconds" class="bg-gray-400 p-1 w-2/5 lg:w-2/4 text-center absolute top-40  md:top-64 lg:top-36 right-3 rounded-lg">
-                ${ hour } hour ${ remainingminutes } min ago </p>
+                ${hour} hour ${remainingminutes} min ago </p>
                 </div>
                 
                 </figure>
@@ -111,10 +120,7 @@ const handleLoadNews = async (categoryId) => {
 
         cardContainer.appendChild(div);
     });
-
-
-
-};
+}
 
 const toggleLoadingSpinner = (isLoading) => {
     const loadingSpinner = document.getElementById('drawing');
@@ -126,41 +132,30 @@ const toggleLoadingSpinner = (isLoading) => {
     }
 }
 
+const sortingData = async () => {
+    const response = await fetch(
+        ` https://openapi.programming-hero.com/api/videos/category/${all} `
+    );
+
+    const data = await response.json();
+    const mainData = data.data;
+
+    const sortData = mainData.sort((a, b) => {
+        let first = a.others.views.slice(0, -1)
+        let second = b.others?.views.slice(0, -1)
+        console.log(first, second)
+        return second - first
+
+    });
+
+    showData(mainData);
+
+
+};
+
 handleCategory();
-handleLoadNews("1001")
+handleLoadNews("1000")
 
-
-// const sortDate = async () => {
-//     const response = await fetch('https://openapi.programming-hero.com/api/ai/tools')
-//     const data = await response.json()
-//     const finalData = data.data.tools
-//     const sortThedata = finalData.sort((a, b) => {
-//         return new Date(a.published_in) - new Date(b.published_in)
-//     })
-//     console.log(sortThedata)
-//     viewData(sortThedata, true)
-// }
-
-// const ShowDetails = async (id) => {
-
-//     const response = await fetch(`https://openapi.programming-hero.com/api/ai/tool/${id}`)
-//     const data = await response.json()
-//     console.log(data)
-
-// }
-// const isShowAll = () => {
-//     loaddata(true);
-// }
-
-// const isShowLess = () => {
-//     loaddata(false)
-// }
-
-
-
-
-
-// loaddata()
 
 
 
